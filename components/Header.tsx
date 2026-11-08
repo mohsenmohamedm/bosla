@@ -1,0 +1,152 @@
+'use client';
+
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import Logo from './Logo';
+import { useCart } from '@/lib/cart';
+import { navItems, siteConfig } from '@/lib/data';
+
+/**
+ * الهيدر — ثابت (Sticky/Fixed) وبيتحول من شفاف لأسود لما تنزل.
+ * - قائمة تنقل ديسكتوب وموبايل (Hamburger بأنيميشن).
+ * - أيقونة بحث (placeholder — ربطها بالبحث لما يتعمل).
+ * - سلة بعدّاد من CartProvider.
+ */
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { totalCount } = useCart();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-smooth ${
+        scrolled
+          ? 'border-b border-bosla-gold/10 bg-bosla-black/85 py-3 backdrop-blur-md'
+          : 'bg-transparent py-6'
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+        {/* اللوجو + السطر الصغير */}
+        <Link
+          href="/"
+          aria-label={`${siteConfig.nameAr} — الصفحة الرئيسية`}
+          className="flex flex-col items-start gap-1.5"
+        >
+          <Logo variant="primary" />
+          <span className="text-[0.7rem] tracking-wide text-bosla-silver/60">
+            {siteConfig.tagline}
+          </span>
+        </Link>
+
+        {/* تنقل الديسكتوب */}
+        <nav aria-label="القائمة الرئيسية" className="hidden items-center gap-9 md:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="relative text-sm text-bosla-silver transition-colors duration-300 hover:text-bosla-gold after:absolute after:-bottom-1 after:right-0 after:h-px after:w-0 after:bg-bosla-gold after:transition-all after:duration-500 hover:after:w-full"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* أدوات: بحث + سلة + زر الموبايل */}
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            aria-label="بحث"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            aria-label={`السلة — ${totalCount} قطعة`}
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+              <path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+            <AnimatePresence>
+              {totalCount > 0 && (
+                <motion.span
+                  key={totalCount}
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.6, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                  className="absolute -left-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-bosla-gold px-1 text-[0.65rem] font-semibold text-bosla-black"
+                >
+                  {totalCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+
+          <button
+            type="button"
+            aria-label={menuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          >
+            <span
+              className={`h-px w-5 bg-bosla-silver transition-all duration-500 ease-smooth ${
+                menuOpen ? 'translate-y-[3px] rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-5 bg-bosla-silver transition-all duration-500 ease-smooth ${
+                menuOpen ? '-translate-y-[3px] -rotate-45' : ''
+              }`}
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* قائمة الموبايل */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            aria-label="القائمة على الموبايل"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden border-t border-bosla-gold/10 bg-bosla-black/95 backdrop-blur-md md:hidden"
+          >
+            <ul className="flex flex-col gap-1 px-5 py-6">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="block rounded-xl px-3 py-3 text-base text-bosla-silver transition-colors duration-300 hover:bg-bosla-gold/10 hover:text-bosla-gold"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
