@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { CartProvider } from '@/lib/cart';
 import { siteConfig } from '@/lib/data';
+import { STORE } from '@/lib/store';
 
 /* الخطوط — عناوين Reem Kufi، نصوص Cairo، إنجليزي Inter */
 const reemKufi = Reem_Kufi({
@@ -29,6 +30,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  /** الروابط المطلقة (Open Graph وغيره) بتتبني من الدومين ده */
+  metadataBase: new URL(STORE.siteUrl),
   title: {
     default: 'بوصلة | Bosla — متجرك الشامل',
     template: '%s | بوصلة Bosla',
@@ -40,6 +43,7 @@ export const metadata: Metadata = {
     title: 'بوصلة | Bosla — متجرك الشامل',
     description: siteConfig.description,
     siteName: 'Bosla',
+    url: STORE.siteUrl,
     locale: 'ar_EG',
     type: 'website',
   },

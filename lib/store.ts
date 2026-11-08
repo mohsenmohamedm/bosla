@@ -15,6 +15,8 @@ export const STORE = {
   whatsappNumber: '201030627267',
   whatsappDisplay: '01030627267',
   email: 'mohsenmohammed9876@gmail.com',
+  /** الدومين الأساسي للموقع — بيتستخدم في الـ metadata والـ sitemap */
+  siteUrl: 'https://bosla-store.shop',
   paymentMethod: 'الدفع عند الاستلام',
 } as const;
 
