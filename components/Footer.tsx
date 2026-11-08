@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import { navItems, siteConfig } from '@/lib/data';
+import { STORE } from '@/lib/store';
+
+const legalLinks = [
+  { label: 'سياسة الخصوصية', href: '/privacy' },
+  { label: 'الشروط والأحكام', href: '/terms' },
+  { label: 'الاسترجاع والاستبدال', href: '/returns' },
+];
 
 const socialLinks = [
   { label: 'إنستجرام', href: '#' },
@@ -23,6 +30,26 @@ export default function Footer() {
           <p className="max-w-xs text-sm leading-relaxed text-bosla-silver/60">
             بوصلة Bosla — متجرك الشامل لاختيارات مميزة.
           </p>
+          <div className="flex flex-col gap-2 text-sm text-bosla-silver/70">
+            <a
+              href={`https://wa.me/${STORE.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit transition-colors duration-300 hover:text-bosla-gold"
+            >
+              واتساب: {STORE.whatsappDisplay}
+            </a>
+            <a href={`mailto:${STORE.email}`} className="w-fit transition-colors duration-300 hover:text-bosla-gold">
+              {STORE.email}
+            </a>
+          </div>
+          <nav aria-label="الصفحات القانونية" className="flex flex-col gap-2 text-xs text-bosla-silver/60">
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="w-fit transition-colors duration-300 hover:text-bosla-gold">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         <nav aria-label="روابط سريعة" className="flex flex-col gap-3">

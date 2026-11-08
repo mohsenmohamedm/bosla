@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Logo from './Logo';
+import SearchDialog from './SearchDialog';
 import { useCart } from '@/lib/cart';
 import { navItems, siteConfig } from '@/lib/data';
 
@@ -16,6 +17,7 @@ import { navItems, siteConfig } from '@/lib/data';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { totalCount } = useCart();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function Header() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   return (
     <header
@@ -66,6 +69,7 @@ export default function Header() {
           <button
             type="button"
             aria-label="بحث"
+            onClick={() => setSearchOpen(true)}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
           >
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
@@ -74,8 +78,8 @@ export default function Header() {
             </svg>
           </button>
 
-          <button
-            type="button"
+          <Link
+            href="/cart"
             aria-label={`السلة — ${totalCount} قطعة`}
             className="relative flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
           >
@@ -97,7 +101,7 @@ export default function Header() {
                 </motion.span>
               )}
             </AnimatePresence>
-          </button>
+          </Link>
 
           <button
             type="button"
@@ -147,6 +151,7 @@ export default function Header() {
           </motion.nav>
         )}
       </AnimatePresence>
+      <SearchDialog open={searchOpen} onClose={closeSearch} />
     </header>
   );
 }

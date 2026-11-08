@@ -1,0 +1,36 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { useCart } from '@/lib/cart';
+import type { Product } from '@/lib/types';
+
+interface AddToCartButtonProps {
+  product: Product;
+  className?: string;
+}
+
+/** زرار إضافة للسلة مع تأكيد مؤقت */
+export default function AddToCartButton({ product, className = '' }: AddToCartButtonProps) {
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+  const timerRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(timerRef.current), []);
+
+  const handleAdd = () => {
+    addItem(product);
+    setAdded(true);
+    window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => setAdded(false), 1600);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleAdd}
+      className={`rounded-full bg-bosla-gold px-10 py-4 text-sm font-medium text-bosla-black transition-all duration-500 ease-smooth hover:-translate-y-0.5 hover:bg-bosla-white hover:shadow-glow ${className}`}
+    >
+      {added ? 'تمت الإضافة للسلة ✓' : 'أضف للسلة'}
+    </button>
+  );
+}

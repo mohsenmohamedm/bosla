@@ -10,12 +10,12 @@ interface CategoryCardProps {
 
 /**
  * كارت قسم. Server Component — الحركة بـ CSS transitions عشان يفضل خفيف.
- * حالياً الرابط بيروح لـ #products؛ لما تعمل صفحات أقسام، غيّره لـ /category/[slug].
+ * الرابط بيروح لصفحة القسم /category/[slug].
  */
 export default function CategoryCard({ category, wide = false }: CategoryCardProps) {
   return (
     <Link
-      href="#products"
+      href={`/category/${category.slug}`}
       aria-label={`تصفح قسم ${category.name}`}
       className={`group relative block overflow-hidden rounded-3xl border border-bosla-silver/10 bg-bosla-graphite transition-all duration-500 ease-smooth hover:border-bosla-gold/60 hover:shadow-glow ${
         wide ? 'aspect-[16/9]' : 'aspect-[4/5]'
