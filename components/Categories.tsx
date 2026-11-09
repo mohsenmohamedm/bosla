@@ -16,7 +16,7 @@ export default function Categories({ categories }: CategoriesProps) {
   const isSingle = categories.length === 1;
 
   return (
-    <section id="categories" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-12 md:px-8 md:py-24">
+    <section id="categories" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-8 md:px-8 md:py-24">
       <Reveal className="mb-6 md:mb-12">
         <p className="text-sm tracking-wide text-bosla-gold">تسوق حسب القسم</p>
         <h2 className="mt-2 font-display text-2xl font-bold text-bosla-white md:mt-3 md:text-[34px]">أقسام بوصلة</h2>
