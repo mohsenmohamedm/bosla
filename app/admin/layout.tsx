@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const store = await getStoreSettings();
 
   return (
-    <div className="mx-auto flex max-w-[1500px] flex-col gap-6 px-4 pb-24 pt-32 md:px-8 lg:flex-row lg:items-start lg:gap-8">
+    <div className="mx-auto flex max-w-[1500px] flex-col gap-6 px-4 pb-24 pt-8 md:px-8 lg:flex-row lg:items-start lg:gap-8">
       <AdminSidebar adminEmail={process.env.ADMIN_EMAIL ?? ''} />
       <div className="flex min-w-0 flex-1 flex-col gap-6">
         <AdminTopBar initialOpen={store.acceptingOrders} />
