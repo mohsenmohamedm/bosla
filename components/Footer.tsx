@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Logo from './Logo';
-import { navItems, siteConfig } from '@/lib/data';
+import { siteConfig } from '@/lib/data';
 
 const legalLinks = [
   { label: 'سياسة الخصوصية', href: '/privacy' },
@@ -8,40 +8,25 @@ const legalLinks = [
   { label: 'الاسترجاع والاستبدال', href: '/returns' },
 ];
 
-/**
- * الفوتر: تيل غامق، الشعار الفرعي "مقصودك.. أينما كنت" هنا بدل الهيدر،
- * وروابط مختصرة من غير تكرار قائمة الهيدر كلها، وسطر حقوق.
- */
+/** الفوتر: تيل غامق، الشعار، روابط السياسات، وسطر حقوق. من غير بيانات تواصل. */
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#06302E] text-[#E3F1F0]">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-3 md:px-8 md:py-16">
-        <div className="flex flex-col items-start gap-4">
+    <footer className="mt-8 bg-[#06302E] text-[#E3F1F0]">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-10 text-center md:px-8 md:py-14">
+        <div className="rounded-2xl bg-[#FAF7F0] px-7 py-4">
           <Logo variant="secondary" />
-          <p className="text-sm text-[#E3F1F0]/80">مقصودك.. أينما كنت</p>
         </div>
-
-        <nav aria-label="روابط سريعة" className="flex flex-col gap-3">
-          <h3 className="text-sm font-bold text-bosla-sun">روابط سريعة</h3>
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="w-fit text-sm text-[#E3F1F0]/80 transition-colors hover:text-bosla-sun">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <nav aria-label="السياسات" className="flex flex-col gap-3">
-          <h3 className="text-sm font-bold text-bosla-sun">السياسات</h3>
+        <p className="text-sm text-[#E3F1F0]/80">مقصودك.. أينما كنت</p>
+        <nav aria-label="السياسات" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           {legalLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="w-fit text-sm text-[#E3F1F0]/80 transition-colors hover:text-bosla-sun">
+            <Link key={link.href} href={link.href} className="text-sm text-[#E3F1F0]/80 transition-colors hover:text-[#F5B83D]">
               {link.label}
             </Link>
           ))}
         </nav>
       </div>
-
       <div className="border-t border-[#E3F1F0]/10">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-xs text-[#E3F1F0]/60 md:px-8">
           © {year} {siteConfig.nameAr} {siteConfig.nameEn}. جميع الحقوق محفوظة.
