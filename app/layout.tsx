@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChromeGate from '@/components/ChromeGate';
+import AutoTranslate from '@/components/AutoTranslate';
 import Tracker from '@/components/Tracker';
 import { CartProvider } from '@/lib/cart';
 import { siteConfig } from '@/lib/data';
@@ -91,6 +92,7 @@ export default async function RootLayout({
         )}
         <StoreConfigProvider value={publicStore}>
         <LangProvider>
+<AutoTranslate />
 <CartProvider>
           <Tracker />
           <ChromeGate>
