@@ -10,8 +10,9 @@ import { STATIC_EN } from '@/lib/i18n-dict';
  */
 
 const AR = /[؀-ۿ]/;
-const AR_DIGITS = /[٠-٩٫٬]/g;
-const EGP = /\s*ج\.م/g;
+const AR_DIGITS = /[٠-٩٫٬]/;
+const AR_DIGITS_ALL = /[٠-٩٫٬]/g;
+const EGP = /s*ج.م/g;
 const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'CODE', 'NOSCRIPT']);
 const ATTRS = ['placeholder', 'aria-label', 'alt', 'title'];
 
@@ -31,7 +32,7 @@ function loadDynamic(): Promise<void> {
         loaded = null;
       });
   }
-  return loaded;
+  return loaded ?? Promise.resolve();
 }
 
 function getDict() {
@@ -46,7 +47,6 @@ function getDict() {
 
 function translate(text: string): string {
   if (!AR.test(text) && !AR_DIGITS.test(text)) return text;
-  AR_DIGITS.lastIndex = 0;
   const { entries, exact } = getDict();
   const trimmed = text.trim();
   let out = text;
@@ -58,12 +58,12 @@ function translate(text: string): string {
       if (out.includes(ar)) out = out.split(ar).join(en);
     }
   }
-  out = out.replace(AR_DIGITS, (c) => (c === '٫' ? '.' : c === '٬' ? ',' : String(c.charCodeAt(0) - 0x0660)));
+  out = out.replace(AR_DIGITS_ALL, (c) => (c === '٫' ? '.' : c === '٬' ? ',' : String(c.charCodeAt(0) - 0x0660)));
   out = out.replace(EGP, ' EGP');
   return out;
 }
 
-interface Record_ {
+interface Rec {
   orig: string;
   out: string;
 }
@@ -72,9 +72,9 @@ export default function AutoTranslate() {
   const { lang } = useLang();
 
   useEffect(() => {
-    const texts = new Map<Node, Record_>();
-    const attrs = new Map<Element, Map<string, Record_>>();
-    let title: Record_ | null = null;
+    const texts = new Map<Node, Rec>();
+    const attrs = new Map<Element, Map<string, Rec>>();
+    let title: Rec | null = null;
     let frame = 0;
     let observer: MutationObserver | null = null;
     let cancelled = false;
@@ -92,7 +92,7 @@ export default function AutoTranslate() {
       for (const name of ATTRS) {
         const value = el.getAttribute(name);
         if (value === null) continue;
-        const map = attrs.get(el) ?? new Map<string, Record_>();
+        const map = attrs.get(el) ?? new Map<string, Rec>();
         const record = map.get(name);
         if (record && record.out === value) continue;
         const out = translate(value);
@@ -103,21 +103,27 @@ export default function AutoTranslate() {
     };
 
     const walk = (root: Node) => {
-      if (root.nodeType === Node.TEXT_NODE) {
-        if (!SKIP_TAGS.has((root.parentElement?.tagName ?? ''))) applyText(root);
-        return;
-      }
-      if (root.nodeType !== Node.ELEMENT_NODE) return;
-      const el = root as Element;
-      if (SKIP_TAGS.has(el.tagName)) return;
-      applyAttrs(el);
-      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
-      let current = walker.nextNode();
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+      let current: Node | null = walker.currentNode;
       while (current) {
         if (current.nodeType === Node.TEXT_NODE) {
           if (!SKIP_TAGS.has(current.parentElement?.tagName ?? '')) applyText(current);
-        } else {
-          applyAttrs(current as Element);
+        } else if (current.nodeType === Node.ELEMENT_NODE) {
+          const el = current as Element;
+          if (SKIP_TAGS.has(el.tagName)) {
+            // تخطي محتوى العنصر ده
+            let next: Node | null = null;
+            let up: Node | null = el;
+            while (up && up !== root && !next) {
+              next = up.nextSibling;
+              up = up.parentNode;
+            }
+            if (!next) break;
+            walker.currentNode = next;
+            current = next;
+            continue;
+          }
+          applyAttrs(el);
         }
         current = walker.nextNode();
       }
@@ -128,13 +134,19 @@ export default function AutoTranslate() {
       if (cancelled) return;
       observer?.disconnect();
       walk(document.body);
-      const current = document.title;
-      if (!title || title.out !== current) {
-        const out = translate(current);
-        title = { orig: current, out };
-        if (out !== current) document.title = out;
+      const currentTitle = document.title;
+      if (!title || title.out !== currentTitle) {
+        const out = translate(currentTitle);
+        title = { orig: currentTitle, out };
+        if (out !== currentTitle) document.title = out;
       }
-      observer?.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+      observer?.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ATTRS,
+      });
     };
 
     const schedule = () => {
@@ -160,6 +172,7 @@ export default function AutoTranslate() {
       void loadDynamic().then(() => {
         if (!cancelled) {
           cache = null;
+          texts.clear();
           run();
         }
       });
