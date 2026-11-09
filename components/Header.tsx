@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Logo from './Logo';
-import SearchDialog from './SearchDialog';
+import HeaderSearch from './HeaderSearch';
 import { useCart } from '@/lib/cart';
 import { getCategories, siteConfig } from '@/lib/data';
 import { CATEGORY_EN, useLang } from '@/lib/lang';
@@ -15,7 +15,6 @@ import { CATEGORY_EN, useLang } from '@/lib/lang';
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const { totalCount } = useCart();
   const { lang, isAr, toggle, t } = useLang();
   const categories = getCategories();
@@ -27,38 +26,22 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const closeSearch = useCallback(() => setSearchOpen(false), []);
-
   const iconBtn =
     'relative flex h-10 items-center justify-center gap-1.5 rounded-full border border-bosla-gold/25 bg-white px-3 text-bosla-gold transition-colors duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10';
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-bosla-gold/10 bg-bosla-black/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 md:px-8 md:py-2.5">
+      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 md:px-8 md:py-2.5">
         <Link
           href="/"
           aria-label={`${isAr ? siteConfig.nameAr : siteConfig.nameEn} — ${t('الصفحة الرئيسية', 'Home')}`}
-          className="order-1 -ms-2 flex shrink-0 items-center md:-ms-4"
+          className="order-1 flex shrink-0 items-center md:-ms-4"
         >
           <Logo variant="header" />
         </Link>
 
         {/* شريط البحث */}
-        <button
-          type="button"
-          onClick={() => setSearchOpen(true)}
-          aria-label={t('بحث', 'Search')}
-          className="order-3 flex h-10 w-full items-center gap-2 rounded-xl border border-bosla-gold/20 bg-white px-3 text-start text-sm text-bosla-silver/70 transition-colors hover:border-bosla-gold/50 md:order-2 md:mx-auto md:max-w-2xl md:flex-1"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-bosla-silver/60" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M20 20l-3.5-3.5" />
-          </svg>
-          <span className="flex-1 truncate">
-            {t('بتدور على إيه في بوصلة؟', 'What are you looking for at Bosla?')}
-          </span>
-          <span className="shrink-0 text-sm font-bold text-bosla-gold">{t('بحث', 'Search')}</span>
-        </button>
+        <HeaderSearch className="order-3 w-full md:order-2 md:mx-auto md:max-w-2xl md:flex-1" />
 
         {/* لغة + سلة */}
         <div className="order-2 ms-auto flex items-center gap-2 md:order-3 md:ms-0">
@@ -120,8 +103,6 @@ export default function Header() {
           ))}
         </ul>
       </nav>
-
-      <SearchDialog open={searchOpen} onClose={closeSearch} />
     </header>
   );
 }
