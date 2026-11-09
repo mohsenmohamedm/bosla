@@ -4,7 +4,6 @@ import Categories from '@/components/Categories';
 import ProductGrid from '@/components/ProductGrid';
 import WhyUs from '@/components/WhyUs';
 import Reviews from '@/components/Reviews';
-import Contact from '@/components/Contact';
 import { getCategories, heroContent, whyUsItems } from '@/lib/data';
 import { getFeaturedProducts } from '@/lib/products-db';
 
@@ -27,7 +26,6 @@ export default async function HomePage() {
       <ProductGrid products={featuredProducts} />
       <WhyUs items={whyUsItems} />
       <Reviews />
-      <Contact />
     </main>
   );
 }
