@@ -172,7 +172,14 @@ export default function AutoTranslate() {
       void loadDynamic().then(() => {
         if (!cancelled) {
           cache = null;
-          texts.clear();
+          texts.forEach((rec, node) => {
+            if (rec.out === rec.orig) texts.delete(node);
+          });
+          attrs.forEach((map) => {
+            map.forEach((rec, name) => {
+              if (rec.out === rec.orig) map.delete(name);
+            });
+          });
           run();
         }
       });
