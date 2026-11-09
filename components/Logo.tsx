@@ -43,7 +43,7 @@ export default function Logo({ variant = 'header', className = '' }: LogoProps) 
     <span className="inline-flex flex-col items-stretch gap-1 leading-none">
       <span className={`text-center font-display font-extrabold leading-none text-bosla-gold-deep ${arClass}`}>بوصلة</span>
       <span dir="ltr" aria-hidden="true" className={`flex justify-between font-display font-extrabold leading-none text-bosla-gold-deep ${enClass}`}>
-        {['B', 'o', 's', 'l', 'a'].map((ch, idx) => (
+        {['B', 'O', 'S', 'L', 'A'].map((ch, idx) => (
           <span key={idx}>{ch}</span>
         ))}
       </span>
