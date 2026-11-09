@@ -10,12 +10,12 @@ export function BoslaMark({ className = '' }: { className?: string }) {
     <svg viewBox="0 0 80 84" className={className} fill="none" aria-hidden="true">
       <defs>
         <linearGradient id="bosla-gold-grad" x1="0" y1="0" x2="80" y2="84" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#3FB5AE" />
-          <stop offset="0.55" stopColor="#0B6E6B" />
+          <stop offset="0" stopColor="#0B6E6B" />
+          <stop offset="0.55" stopColor="#095F5C" />
           <stop offset="1" stopColor="#074F4D" />
         </linearGradient>
         <linearGradient id="bosla-needle-grad" x1="40" y1="8" x2="62" y2="40" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#FFA08F" />
+          <stop offset="0" stopColor="#FF8470" />
           <stop offset="1" stopColor="#FF6F5E" />
         </linearGradient>
       </defs>
@@ -26,7 +26,7 @@ export function BoslaMark({ className = '' }: { className?: string }) {
       <circle cx="40" cy="78" r="4" fill="url(#bosla-gold-grad)" />
       {/* إبرة البوصلة: نص مضيء + نص خافت، مركزها على الباء */}
       <path d="M40 40 L62 8 L48 44 Z" fill="url(#bosla-needle-grad)" />
-      <path d="M40 40 L32 44 L18 16 Z" fill="url(#bosla-needle-grad)" opacity="0.5" />
+      <path d="M40 40 L32 44 L18 16 Z" fill="url(#bosla-needle-grad)" opacity="1" />
       <circle cx="40" cy="40" r="3" fill="#FFFBF5" />
     </svg>
   );
@@ -38,14 +38,23 @@ interface LogoProps {
 }
 
 export default function Logo({ variant = 'header', className = '' }: LogoProps) {
+  /** الاسم: "بوصلة" فوق، وتحتها Bosla موزعة حروفها على عرض الكلمة العربية، بنفس الخط. */
+  const wordmark = (arClass: string, enClass: string) => (
+    <span className="inline-flex flex-col items-stretch gap-1 leading-none">
+      <span className={`text-center font-display font-extrabold leading-none text-bosla-gold-deep ${arClass}`}>بوصلة</span>
+      <span dir="ltr" aria-hidden="true" className={`flex justify-between font-display font-bold leading-none text-bosla-gold ${enClass}`}>
+        {['B', 'o', 's', 'l', 'a'].map((ch, idx) => (
+          <span key={idx}>{ch}</span>
+        ))}
+      </span>
+    </span>
+  );
+
   if (variant === 'header') {
     return (
-      <span className={`inline-flex items-center gap-2.5 leading-none ${className}`} aria-label="بوصلة Bosla">
-        <BoslaMark className="h-10 w-auto md:h-11" />
-        <span className="flex flex-col items-start gap-1">
-          <span className="font-display text-2xl font-extrabold leading-none text-bosla-gold-deep md:text-[28px]">بوصلة</span>
-          <span className="font-latin text-xs font-semibold leading-none tracking-wide text-bosla-silver md:text-sm">Bosla</span>
-        </span>
+      <span className={`inline-flex items-center gap-3 leading-none ${className}`} aria-label="بوصلة Bosla">
+        {wordmark('text-[26px] md:text-[30px]', 'text-[11px] md:text-[13px]')}
+        <BoslaMark className="h-11 w-auto md:h-12" />
       </span>
     );
   }
@@ -53,11 +62,8 @@ export default function Logo({ variant = 'header', className = '' }: LogoProps) 
   if (variant === 'secondary') {
     return (
       <span className={`inline-flex items-center gap-3 leading-none ${className}`} aria-label="بوصلة Bosla">
-        <BoslaMark className="h-11 w-auto" />
-        <span className="flex flex-col items-start gap-1">
-          <span className="font-display text-3xl font-extrabold leading-none text-bosla-gold-deep">بوصلة</span>
-          <span className="font-latin text-sm font-semibold leading-none tracking-wide text-bosla-silver">Bosla</span>
-        </span>
+        {wordmark('text-[32px]', 'text-sm')}
+        <BoslaMark className="h-12 w-auto" />
       </span>
     );
   }
