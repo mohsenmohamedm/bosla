@@ -16,6 +16,10 @@ export interface ProductInput {
   imageAlt: string;
   categoryId: string;
   badge: string;
+  nameEn: string;
+  descriptionEn: string;
+  imageAltEn: string;
+  badgeEn: string;
   featured: boolean;
   /** null = المخزون مش متتبع */
   stock: number | null;
@@ -35,6 +39,10 @@ export function parseProductInput(body: unknown): { data?: ProductInput; error?:
   const imageAlt = text(input.imageAlt);
   const categoryId = text(input.categoryId);
   const badge = text(input.badge);
+  const nameEn = text(input.nameEn);
+  const descriptionEn = text(input.descriptionEn);
+  const imageAltEn = text(input.imageAltEn);
+  const badgeEn = text(input.badgeEn);
   const price = Number(input.price);
   const featured = input.featured === true;
 
@@ -62,6 +70,6 @@ export function parseProductInput(body: unknown): { data?: ProductInput; error?:
   }
 
   return {
-    data: { name, description, price, image, imageAlt, categoryId, badge, featured, stock },
+    data: { name, description, price, image, imageAlt, categoryId, badge, nameEn, descriptionEn, imageAltEn, badgeEn, featured, stock },
   };
 }
