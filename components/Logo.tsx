@@ -7,42 +7,27 @@
 
 export function BoslaMark({ className = '' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 100 118" className={className} fill="none" aria-hidden="true">
+    <svg viewBox="0 0 80 84" className={className} fill="none" aria-hidden="true">
       <defs>
-        <linearGradient id="bm-ring" x1="10" y1="20" x2="90" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#9FB3B1" />
-          <stop offset="0.45" stopColor="#4F6B69" />
-          <stop offset="1" stopColor="#B7C7C5" />
-        </linearGradient>
-        <linearGradient id="bm-teal" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="bosla-gold-grad" x1="0" y1="0" x2="80" y2="84" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#0B6E6B" />
+          <stop offset="0.55" stopColor="#095F5C" />
           <stop offset="1" stopColor="#074F4D" />
         </linearGradient>
-        <linearGradient id="bm-needle" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="bosla-needle-grad" x1="40" y1="8" x2="62" y2="40" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#FF8470" />
           <stop offset="1" stopColor="#FF6F5E" />
         </linearGradient>
       </defs>
-      {/* حلقة التعليق */}
-      <circle cx="50" cy="9" r="7" stroke="url(#bm-ring)" strokeWidth="3.5" />
-      <rect x="45.5" y="15" width="9" height="11" rx="2" fill="url(#bm-ring)" />
-      {/* إطار البوصلة */}
-      <circle cx="50" cy="70" r="42" stroke="url(#bm-ring)" strokeWidth="7" />
-      <circle cx="50" cy="70" r="34.5" stroke="#4F6B69" strokeOpacity="0.35" strokeWidth="1.5" />
-      <path d="M50 30v7M50 103v7M10 70h7M83 70h7" stroke="#4F6B69" strokeWidth="2.5" strokeLinecap="round" />
-      {/* حرف B */}
-      <path
-        d="M36 47h19a11.5 11.5 0 0 1 0 23H36M36 70h22a12 12 0 0 1 0 24H36M36 47v47"
-        stroke="url(#bm-teal)"
-        strokeWidth="6.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* إبرتا البوصلة */}
-      <path d="M50 70L24 41l17 22z" fill="url(#bm-needle)" />
-      <path d="M50 70L77 41 59 63z" fill="url(#bm-needle)" />
-      <path d="M50 70L30 99l15-23z" fill="#8A9A99" />
-      <circle cx="50" cy="70" r="5.5" fill="#FBF8F2" stroke="#4F6B69" strokeWidth="2" />
+      {/* الباء: الخط الأفقي والقوس تحته */}
+      <path d="M8 40 H72" stroke="url(#bosla-gold-grad)" strokeWidth="5" strokeLinecap="round" />
+      <path d="M14 40 Q14 66 40 66 Q66 66 66 40" stroke="url(#bosla-gold-grad)" strokeWidth="5" strokeLinecap="round" />
+      {/* نقطة الباء */}
+      <circle cx="40" cy="78" r="4" fill="url(#bosla-gold-grad)" />
+      {/* إبرة البوصلة: نص مضيء + نص خافت، مركزها على الباء */}
+      <path d="M40 40 L62 8 L48 44 Z" fill="url(#bosla-needle-grad)" />
+      <path d="M40 40 L32 44 L18 16 Z" fill="url(#bosla-needle-grad)" opacity="1" />
+      <circle cx="40" cy="40" r="3" fill="#FFFBF5" />
     </svg>
   );
 }
