@@ -1,3 +1,4 @@
+import { T } from '@/lib/lang';
 import Reveal from './Reveal';
 import type { WhyUsIconKey, WhyUsItem } from '@/lib/types';
 
@@ -38,8 +39,8 @@ export default function WhyUs({ items }: WhyUsProps) {
     <section id="about" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-12 md:px-8 md:pb-24">
       <div className="rounded-[24px] bg-bosla-graphite p-5 md:rounded-[32px] md:p-12">
         <Reveal className="mb-6 md:mb-10">
-          <p className="text-sm tracking-wide text-bosla-gold">من نحن</p>
-          <h2 className="mt-2 font-display text-2xl font-bold text-bosla-white md:mt-3 md:text-[34px]">لماذا بوصلة؟</h2>
+          <p className="text-sm tracking-wide text-bosla-gold"><T ar="من نحن" en="About us" /></p>
+          <h2 className="mt-2 font-display text-2xl font-bold text-bosla-white md:mt-3 md:text-[34px]"><T ar="لماذا بوصلة؟" en="Why Bosla?" /></h2>
         </Reveal>
 
         <div className="grid gap-3 md:grid-cols-3 md:gap-6">
@@ -51,8 +52,8 @@ export default function WhyUs({ items }: WhyUsProps) {
                     {icons[item.icon]}
                   </svg>
                 </span>
-                <h3 className="text-lg font-bold text-bosla-white">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-bosla-silver">{item.description}</p>
+                <h3 className="text-lg font-bold text-bosla-white"><T ar={item.title} en={WHY_EN[item.id]?.title ?? item.title} /></h3>
+                <p className="text-sm leading-relaxed text-bosla-silver"><T ar={item.description} en={WHY_EN[item.id]?.description ?? item.description} /></p>
               </div>
             </Reveal>
           ))}
@@ -61,3 +62,9 @@ export default function WhyUs({ items }: WhyUsProps) {
     </section>
   );
 }
+
+const WHY_EN: Record<string, { title: string; description: string }> = {
+  shipping: { title: 'Delivery to all governorates', description: 'We deliver your order to your door with care, as fast as possible.' },
+  authentic: { title: 'Authentic quality', description: 'Authentic products that match their description, carefully chosen before they reach you.' },
+  secure: { title: 'Cash on delivery', description: 'Order with peace of mind and pay when your order arrives and you receive it.' },
+};
