@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/lib/cart';
+import { trackEvent } from '@/lib/track-client';
 import type { Product } from '@/lib/types';
 
 interface AddToCartButtonProps {
@@ -9,7 +10,7 @@ interface AddToCartButtonProps {
   className?: string;
 }
 
-/** زرار إضافة للسلة مع تأكيد مؤقت */
+/** زرار إضافة للسلة مع تأكيد مؤقت وتسجيل الحدث في الإحصائيات */
 export default function AddToCartButton({ product, className = '' }: AddToCartButtonProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
@@ -19,6 +20,7 @@ export default function AddToCartButton({ product, className = '' }: AddToCartBu
 
   const handleAdd = () => {
     addItem(product);
+    trackEvent('add_to_cart', { productId: product.id });
     setAdded(true);
     window.clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => setAdded(false), 1600);

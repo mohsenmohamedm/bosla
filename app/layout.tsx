@@ -1,10 +1,15 @@
 import type { Metadata, Viewport } from 'next';
-import { Cairo, Inter, Reem_Kufi } from 'next/font/google';
+import { Aref_Ruqaa, Cairo, Inter, Reem_Kufi } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Tracker from '@/components/Tracker';
 import { CartProvider } from '@/lib/cart';
 import { siteConfig } from '@/lib/data';
+import { activePixelId, getPixelSettings, isValidPixelId, metaPixelCode } from '@/lib/pixel';
+import { StoreConfigProvider } from '@/components/StoreConfigProvider';
+import { getStoreSettings, toPublicConfig } from '@/lib/store-settings';
 import { STORE } from '@/lib/store';
 
 /* الخطوط — عناوين Reem Kufi، نصوص Cairo، إنجليزي Inter */
@@ -19,6 +24,13 @@ const cairo = Cairo({
   subsets: ['arabic', 'latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-cairo',
+  display: 'swap',
+});
+
+const calligraphy = Aref_Ruqaa({
+  subsets: ['arabic'],
+  weight: ['400', '700'],
+  variable: '--font-calligraphy',
   display: 'swap',
 });
 
@@ -50,26 +62,39 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0A0A0A',
+  themeColor: '#0B6E6B',
   width: 'device-width',
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const pixel = await getPixelSettings();
+  const datasetId = activePixelId(pixel);
+  const pixelId = pixel.enabled && isValidPixelId(datasetId) ? datasetId : null;
+  const publicStore = toPublicConfig(await getStoreSettings());
+
   return (
     <html
       lang="ar"
       dir="rtl"
-      className={`${reemKufi.variable} ${cairo.variable} ${inter.variable}`}
+      className={`${reemKufi.variable} ${cairo.variable} ${inter.variable} ${calligraphy.variable}`}
     >
       <body className="min-h-screen font-body">
+        {pixelId && (
+          <Script id="meta-pixel" strategy="afterInteractive">
+            {metaPixelCode(pixelId)}
+          </Script>
+        )}
+        <StoreConfigProvider value={publicStore}>
         <CartProvider>
+          <Tracker />
           <Header />
           {children}
           <Footer />
         </CartProvider>
+        </StoreConfigProvider>
       </body>
     </html>
   );

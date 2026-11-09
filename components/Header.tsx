@@ -34,8 +34,8 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-smooth ${
         scrolled
-          ? 'border-b border-bosla-gold/10 bg-bosla-black/85 py-3 backdrop-blur-md'
-          : 'bg-transparent py-6'
+          ? 'border-b border-bosla-gold/10 bg-bosla-black/90 py-2.5 backdrop-blur-md md:py-3'
+          : 'bg-transparent py-4 md:py-5'
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
@@ -43,21 +43,18 @@ export default function Header() {
         <Link
           href="/"
           aria-label={`${siteConfig.nameAr} — الصفحة الرئيسية`}
-          className="flex flex-col items-start gap-1.5"
+          className="-mr-2 flex shrink-0 items-center md:-mr-4"
         >
-          <Logo variant="primary" />
-          <span className="text-[0.7rem] tracking-wide text-bosla-silver/60">
-            {siteConfig.tagline}
-          </span>
+          <Logo variant="header" />
         </Link>
 
         {/* تنقل الديسكتوب */}
-        <nav aria-label="القائمة الرئيسية" className="hidden items-center gap-9 md:flex">
+        <nav aria-label="القائمة الرئيسية" className="hidden items-center gap-12 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="relative text-sm text-bosla-silver transition-colors duration-300 hover:text-bosla-gold after:absolute after:-bottom-1 after:right-0 after:h-px after:w-0 after:bg-bosla-gold after:transition-all after:duration-500 hover:after:w-full"
+              className="relative text-lg font-bold tracking-wide text-bosla-silver transition-colors duration-300 hover:text-bosla-gold after:absolute after:-bottom-1.5 after:right-0 after:h-[2px] after:w-0 after:bg-bosla-gold after:transition-all after:duration-500 hover:after:w-full"
             >
               {item.label}
             </Link>
@@ -70,9 +67,9 @@ export default function Header() {
             type="button"
             aria-label="بحث"
             onClick={() => setSearchOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-bosla-gold/40 bg-bosla-black/30 text-bosla-gold backdrop-blur-sm transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
               <circle cx="11" cy="11" r="7" />
               <path d="M20 20l-3.5-3.5" />
             </svg>
@@ -81,9 +78,9 @@ export default function Header() {
           <Link
             href="/cart"
             aria-label={`السلة — ${totalCount} قطعة`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-bosla-silver/15 text-bosla-silver transition-all duration-300 hover:border-bosla-gold hover:text-bosla-gold"
+            className="relative flex h-12 w-12 items-center justify-center rounded-full border border-bosla-gold/40 bg-bosla-black/30 text-bosla-gold backdrop-blur-sm transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
               <path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" />
               <path d="M9 8V6a3 3 0 0 1 6 0v2" />
             </svg>
@@ -95,7 +92,7 @@ export default function Header() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.6, opacity: 0 }}
                   transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute -left-1 -top-1 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-bosla-gold px-1 text-[0.65rem] font-semibold text-bosla-black"
+                  className="absolute -left-1.5 -top-1.5 flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-bosla-gold px-1.5 text-xs font-bold text-bosla-black shadow-glow"
                 >
                   {totalCount}
                 </motion.span>

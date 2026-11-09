@@ -1,7 +1,10 @@
 import Hero from '@/components/Hero';
+import TrustBar from '@/components/TrustBar';
 import Categories from '@/components/Categories';
 import ProductGrid from '@/components/ProductGrid';
 import WhyUs from '@/components/WhyUs';
+import Reviews from '@/components/Reviews';
+import Contact from '@/components/Contact';
 import { getCategories, heroContent, whyUsItems } from '@/lib/data';
 import { getFeaturedProducts } from '@/lib/products-db';
 
@@ -10,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 /**
  * الصفحة الرئيسية — Server Component.
- * الأقسام من lib/data.ts، والمنتجات من قاعدة البيانات (بيتضيفوا من الداشبورد).
+ * الترتيب: هيرو ← ضمانات ← أقسام ← منتجات ← لماذا بوصلة ← آراء ← تواصل.
  */
 export default async function HomePage() {
   const categories = getCategories();
@@ -19,9 +22,12 @@ export default async function HomePage() {
   return (
     <main>
       <Hero content={heroContent} />
+      <TrustBar />
       <Categories categories={categories} />
       <ProductGrid products={featuredProducts} />
       <WhyUs items={whyUsItems} />
+      <Reviews />
+      <Contact />
     </main>
   );
 }

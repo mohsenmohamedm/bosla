@@ -1,4 +1,5 @@
 import type { CartItem } from './types';
+import { shippingFor, type PublicStoreConfig } from './shipping';
 
 /* =========================================================================
  * إعدادات المتجر الثابتة: الشحن، التواصل، طريقة الدفع.
@@ -9,8 +10,6 @@ export const STORE = {
   name: 'Bosla',
   nameAr: 'بوصلة',
   currencyLabel: 'ج.م',
-  /** شحن موحد لكل المحافظات بالجنيه */
-  shippingFee: 75,
   /** رقم الواتساب بصيغة دولية بدون + */
   whatsappNumber: '201030627267',
   whatsappDisplay: '01030627267',
@@ -71,12 +70,16 @@ export interface OrderSummary {
 export const formatPrice = (amount: number): string =>
   `${amount.toLocaleString('ar-EG')} ${STORE.currencyLabel}`;
 
-export const calculateTotals = (items: CartItem[]) => {
+export const calculateTotals = (
+  items: CartItem[],
+  config: PublicStoreConfig,
+  governorate = '',
+) => {
   const subtotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
-  const shipping = items.length > 0 ? STORE.shippingFee : 0;
+  const shipping = items.length > 0 ? shippingFor(config, governorate, subtotal) : 0;
   return { subtotal, shipping, total: subtotal + shipping };
 };
 

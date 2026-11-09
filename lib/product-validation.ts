@@ -17,6 +17,8 @@ export interface ProductInput {
   categoryId: string;
   badge: string;
   featured: boolean;
+  /** null = المخزون مش متتبع */
+  stock: number | null;
 }
 
 export function parseProductInput(body: unknown): { data?: ProductInput; error?: string } {
@@ -36,12 +38,18 @@ export function parseProductInput(body: unknown): { data?: ProductInput; error?:
   const price = Number(input.price);
   const featured = input.featured === true;
 
+  const stockText = text(input.stock);
+  const stock = stockText === '' ? null : Number(stockText);
+
   if (name.length < 2) return { error: 'اكتب اسم المنتج' };
   if (description.length < 5) return { error: 'اكتب وصف مختصر للمنتج' };
   if (!Number.isFinite(price) || price <= 0) return { error: 'السعر لازم يكون رقم أكبر من صفر' };
   if (imageAlt.length < 3) return { error: 'اكتب وصف للصورة' };
   if (!categories.some((category) => category.id === categoryId)) {
     return { error: 'اختار قسم صحيح' };
+  }
+  if (stock !== null && (!Number.isInteger(stock) || stock < 0)) {
+    return { error: 'المخزون لازم يكون رقم صحيح صفر أو أكتر' };
   }
 
   try {
@@ -54,6 +62,6 @@ export function parseProductInput(body: unknown): { data?: ProductInput; error?:
   }
 
   return {
-    data: { name, description, price, image, imageAlt, categoryId, badge, featured },
+    data: { name, description, price, image, imageAlt, categoryId, badge, featured, stock },
   };
 }

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import PageShell from '@/components/PageShell';
+import { useStoreConfig } from '@/components/StoreConfigProvider';
 import { useCart } from '@/lib/cart';
 import {
   GOVERNORATES,
@@ -34,7 +35,8 @@ export default function CheckoutPage() {
     notes: '',
   });
 
-  const { subtotal, shipping, total } = calculateTotals(items);
+  const config = useStoreConfig();
+  const { subtotal, shipping, total } = calculateTotals(items, config, form.governorate);
 
   const updateField = (field: keyof CustomerDetails) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -55,6 +57,10 @@ export default function CheckoutPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (items.length === 0 || submitting) return;
+    if (!config.codEnabled) {
+      setSubmitError('الدفع عند الاستلام مش متاح حالياً');
+      return;
+    }
 
     const nextErrors = validate();
     setErrors(nextErrors);
@@ -124,7 +130,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <PageShell title="إتمام الطلب" subtitle={`${STORE.paymentMethod} — الشحن ${formatPrice(STORE.shippingFee)} لكل المحافظات`}>
+    <PageShell title="إتمام الطلب" subtitle={`${STORE.paymentMethod} — الشحن يبدأ من ${formatPrice(Math.min(config.shippingOther, config.shippingCairoGiza))}`}>
       <form onSubmit={handleSubmit} noValidate className="grid gap-10 md:grid-cols-5">
         <div className="flex flex-col gap-5 md:col-span-3">
           <div>

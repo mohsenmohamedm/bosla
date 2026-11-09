@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/mongodb';
 import { getProductById } from '@/lib/products-db';
+import { sendPurchaseEvent } from '@/lib/pixel';
+import { getStoreSettings } from '@/lib/store-settings';
+import { shippingFor } from '@/lib/shipping';
 import {
   GOVERNORATES,
   STORE,
@@ -12,6 +15,7 @@ import {
  * POST /api/orders
  * بيستقبل بيانات العميل والمنتجات (ID والكمية بس).
  * الأسعار بتتقرأ من قاعدة البيانات على السيرفر، فالعميل مايقدرش يغيّر السعر.
+ * المخزون بيتخصم للمنتجات اللي المخزون بتاعها متتبع (رقم). الطلب مش بيتوقف بسببه.
  */
 
 interface IncomingItem {
@@ -34,6 +38,14 @@ const badRequest = (message: string) =>
   NextResponse.json({ error: message }, { status: 400 });
 
 export async function POST(request: Request) {
+  const settings = await getStoreSettings();
+  if (!settings.acceptingOrders) {
+    return NextResponse.json({ error: 'استقبال الطلبات متوقف مؤقتاً، حاول بعد شوية' }, { status: 403 });
+  }
+  if (!settings.codEnabled) {
+    return NextResponse.json({ error: 'الدفع عند الاستلام مش متاح حالياً' }, { status: 403 });
+  }
+
   let body: IncomingBody;
   try {
     body = (await request.json()) as IncomingBody;
@@ -78,10 +90,11 @@ export async function POST(request: Request) {
   }
 
   const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = STORE.shippingFee;
+  const shipping = shippingFor(settings, customer.governorate, subtotal);
   const total = subtotal + shipping;
 
   const orderNumber = createOrderId();
+  const phone = customer.phone.replace(/\s|-/g, '');
 
   const db = await getDb();
   await db.collection('orders').insertOne({
@@ -89,7 +102,7 @@ export async function POST(request: Request) {
     status: 'new',
     customer: {
       name: customer.name.trim(),
-      phone: customer.phone.replace(/\s|-/g, ''),
+      phone,
       governorate: customer.governorate,
       address: customer.address.trim(),
       notes: customer.notes?.trim() || '',
@@ -102,6 +115,19 @@ export async function POST(request: Request) {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
+
+  // خصم المخزون للمنتجات اللي مخزونها متتبع بس
+  await Promise.all(
+    orderItems.map((item) =>
+      db.collection('products').updateOne(
+        { id: item.productId, stock: { $type: 'number' } },
+        { $inc: { stock: -item.quantity } },
+      ),
+    ),
+  );
+
+  // إرسال حدث الشراء لـ Meta (لو الـ Pixel مفعّل)
+  await sendPurchaseEvent({ orderNumber, phone, total });
 
   return NextResponse.json({ id: orderNumber, total }, { status: 201 });
 }

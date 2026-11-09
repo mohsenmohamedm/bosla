@@ -15,7 +15,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
   if (!(await isAdminSession())) redirect('/admin/login');
 
   const { id } = await params;
-  const product = await getProductById(id);
+  const product = await getProductById(id, { includeArchived: true });
   if (!product) notFound();
 
   const categories = getCategories().map((category) => ({ id: category.id, name: category.name }));
@@ -29,12 +29,13 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     categoryId: product.categoryId,
     badge: product.badge ?? '',
     featured: Boolean(product.featured),
+    stock: typeof product.stock === 'number' ? String(product.stock) : '',
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-5 pb-24 pt-36 md:px-8">
-      <h1 className="mb-8 font-display text-3xl font-semibold text-bosla-white">تعديل: {product.name}</h1>
+    <section className="flex max-w-3xl flex-col gap-8">
+      <h1 className="font-display text-3xl font-semibold text-bosla-white">تعديل: {product.name}</h1>
       <ProductForm productId={product.id} initial={initial} categories={categories} />
-    </main>
+    </section>
   );
 }

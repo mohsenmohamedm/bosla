@@ -37,14 +37,14 @@ export const navItems: NavItem[] = [
  * ========================================================================= */
 
 export const heroContent: HeroContent = {
-  eyebrow: 'بوصلة — متجرك الشامل',
-  title: 'بوصلة — وجهتك للاختيار الأفضل',
-  subtitle: 'كل اللي تحتاجه.. في مكان واحد.',
-  // صورة placeholder من Pexels (close-up ليلي لإضاءة فاخرة). بدّلها بصورتك لما تتوفر.
-  image:
-    'https://images.pexels.com/photos/2906849/pexels-photo-2906849.jpeg?auto=compress&cs=tinysrgb&w=1920',
-  imageAlt: 'لقطة سينمائية لإضاءة سيارة فاخرة ليلاً',
-  primaryCta: { label: 'تسوق الآن', href: '#products' },
+  eyebrow: 'بوصلتك',
+  title: 'كل ما تحتاجه..',
+  titleAccent: 'في مكان واحد.',
+  subtitle: 'تشكيلة مختارة من أحدث المنتجات، بجودة نثق فيها وأسعار واضحة.',
+  // صورة الهيرو من public/images (ملف محلي، مش من الإنترنت)
+  image: '/images/hero-bg.png',
+  imageAlt: 'بوصلة — منتجات أنيقة على رف داكن',
+  primaryCta: { label: 'تسوق دلوقتي', href: '#products' },
   secondaryCta: { label: 'من نحن', href: '#about' },
 };
 

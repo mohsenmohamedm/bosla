@@ -20,16 +20,25 @@ export async function getAllProducts(): Promise<Product[]> {
     .toArray();
 }
 
-export async function getProductById(id: string): Promise<Product | null> {
+/** المتجر بيجيب المنتج المنشور بس. الداشبورد بيمرر includeArchived عشان يعدّل المؤرشف */
+export async function getProductById(id: string, options: { includeArchived?: boolean } = {}): Promise<Product | null> {
   const db = await getDb();
-  return db.collection<Product>(COLLECTION).findOne({ id }, hideMongoId);
+  const filter = options.includeArchived ? { id } : { id, archived: { $ne: true } };
+  return db.collection<Product>(COLLECTION).findOne(filter, hideMongoId);
+}
+
+/** بيأرشف المنتج أو بيرجعه للمتجر. بيرجع false لو المنتج مش موجود */
+export async function setProductArchived(id: string, archived: boolean): Promise<boolean> {
+  const db = await getDb();
+  const result = await db.collection<Product>(COLLECTION).updateOne({ id }, { $set: { archived } });
+  return result.matchedCount > 0;
 }
 
 export async function getProductsByCategory(categoryId: string): Promise<Product[]> {
   const db = await getDb();
   return db
     .collection<Product>(COLLECTION)
-    .find({ categoryId }, hideMongoId)
+    .find({ categoryId, archived: { $ne: true } }, hideMongoId)
     .toArray();
 }
 
@@ -37,7 +46,7 @@ export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
   const db = await getDb();
   return db
     .collection<Product>(COLLECTION)
-    .find({ featured: true }, hideMongoId)
+    .find({ featured: true, archived: { $ne: true } }, hideMongoId)
     .limit(limit)
     .toArray();
 }
@@ -49,6 +58,8 @@ export async function createProduct(input: ProductInput): Promise<Product> {
     id: createProductId(),
     currency: 'EGP',
     ...input,
+    archived: false,
+    createdAt: new Date().toISOString(),
   };
   await db.collection<Product>(COLLECTION).insertOne({ ...product });
   return product;
@@ -92,7 +103,7 @@ export async function searchProducts(query: string, limit = 12): Promise<Product
   const db = await getDb();
   return db
     .collection<Product>(COLLECTION)
-    .find({ $or: [{ name: pattern }, { description: pattern }] }, hideMongoId)
+    .find({ archived: { $ne: true }, $or: [{ name: pattern }, { description: pattern }] }, hideMongoId)
     .limit(limit)
     .toArray();
 }

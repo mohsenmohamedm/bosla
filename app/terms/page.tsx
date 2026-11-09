@@ -1,9 +1,13 @@
 import PageShell from '@/components/PageShell';
 import { STORE, formatPrice } from '@/lib/store';
+import { getStoreSettings } from '@/lib/store-settings';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = { title: 'الشروط والأحكام' };
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const store = await getStoreSettings();
   return (
     <PageShell title="الشروط والأحكام" subtitle="بتصفحك للموقع وطلبك منه يعني إنك وافقت على الشروط دي.">
       <div className="flex flex-col gap-8 leading-relaxed text-bosla-silver/80">
@@ -16,7 +20,7 @@ export default function TermsPage() {
         <section>
           <h2 className="mb-3 font-display text-xl text-bosla-white">الشحن</h2>
           <p>
-            الشحن موحد لكل المحافظات بمبلغ {formatPrice(STORE.shippingFee)} للطلب الواحد. مدة التوصيل بتختلف حسب المحافظة وبنتواصل معاك بالموعد.
+            الشحن يبدأ من {formatPrice(Math.min(store.shippingOther, store.shippingCairoGiza))} للطلب الواحد وبيختلف حسب المحافظة. مدة التوصيل بتختلف حسب المحافظة وبنتواصل معاك بالموعد.
           </p>
         </section>
         <section>

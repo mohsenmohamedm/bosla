@@ -37,6 +37,12 @@ export interface Product {
   badge?: string;
   /** يظهر في "منتجات مختارة" في الصفحة الرئيسية */
   featured?: boolean;
+  /** عدد القطع في المخزون. null أو مش موجود = المخزون مش متتبع */
+  stock?: number | null;
+  /** المنتج المؤرشف مابيظهرش في المتجر ومابيتطلبش */
+  archived?: boolean;
+  /** تاريخ الإضافة (ISO) */
+  createdAt?: string;
 }
 
 export interface NavItem {
@@ -53,6 +59,8 @@ export interface CtaLink {
 export interface HeroContent {
   eyebrow: string;
   title: string;
+  /** الجزء الملوّن من العنوان (في سطر تاني) */
+  titleAccent?: string;
   subtitle: string;
   image: string;
   imageAlt: string;

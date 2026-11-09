@@ -5,10 +5,12 @@ import Link from 'next/link';
 import PageShell from '@/components/PageShell';
 import { useCart } from '@/lib/cart';
 import { STORE, calculateTotals, formatPrice } from '@/lib/store';
+import { useStoreConfig } from '@/components/StoreConfigProvider';
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem } = useCart();
-  const { subtotal, shipping, total } = calculateTotals(items);
+  const config = useStoreConfig();
+  const { subtotal, shipping, total } = calculateTotals(items, config);
 
   if (items.length === 0) {
     return (
@@ -86,7 +88,7 @@ export default function CartPage() {
           <span>{formatPrice(subtotal)}</span>
         </div>
         <div className="mt-3 flex justify-between text-sm text-bosla-silver/80">
-          <span>الشحن (لكل المحافظات)</span>
+          <span>الشحن (حسب المحافظة)</span>
           <span>{formatPrice(shipping)}</span>
         </div>
         <div className="mt-5 flex justify-between border-t border-bosla-silver/10 pt-5 font-display text-lg text-bosla-white">

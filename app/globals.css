@@ -12,8 +12,8 @@
   }
 
   ::selection {
-    background: rgba(201, 168, 106, 0.35);
-    color: #ffffff;
+    background: rgba(11, 110, 107, 0.22);
+    color: #12302E;
   }
 }
 
@@ -21,4 +21,14 @@
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Design tokens — من ملف التصميم (بوصلة) */
+:root{
+  --teal-900:#06302E; --teal-800:#074F4D; --teal-600:#0B6E6B; --teal-100:#E3F1F0; --teal-50:#F1F8F7;
+  --bg:#FAF7F0; --surface:#FFFFFF; --ink:#10302E; --muted:#5B7370; --line:#E7E2D6;
+  --coral:#FF6F5E; --coral-700:#E8523F; --gold:#F5B83D; --success:#1E9E6A; --danger:#D64545;
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-pill:999px;
+  --shadow-1:0 1px 2px rgba(16,48,46,.06),0 4px 12px rgba(16,48,46,.06);
+  --shadow-2:0 8px 24px rgba(16,48,46,.12);
 }

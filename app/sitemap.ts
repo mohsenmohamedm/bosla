@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
-  const products = await getAllProducts();
+  const products = (await getAllProducts()).filter((p) => !p.archived);
   const productPages = products.map((product) => ({
     url: `${STORE.siteUrl}/products/${product.id}`,
     lastModified: now,

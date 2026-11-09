@@ -5,7 +5,6 @@ interface WhyUsProps {
   items: WhyUsItem[];
 }
 
-/** أيقونات خطية رفيعة بلون ذهبي */
 const icons: Record<WhyUsIconKey, React.ReactNode> = {
   shipping: (
     <>
@@ -31,45 +30,33 @@ const icons: Record<WhyUsIconKey, React.ReactNode> = {
 };
 
 /**
- * "لماذا بوصلة؟" — id="about" عشان لينك "من نحن" في الهيدر يوصله.
+ * "لماذا بوصلة؟" — كروت بأيقونات خطية على خلفية تيل فاتحة.
+ * id="about" عشان لينك "من نحن" في الهيدر يوصله.
  */
 export default function WhyUs({ items }: WhyUsProps) {
   return (
-    <section id="about" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
-      <Reveal className="mb-16 text-center">
-        <p className="text-sm tracking-wide text-bosla-gold">من نحن</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold text-bosla-white md:text-4xl">
-          لماذا بوصلة؟
-        </h2>
-      </Reveal>
+    <section id="about" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-12 md:px-8 md:pb-24">
+      <div className="rounded-[24px] bg-bosla-graphite p-5 md:rounded-[32px] md:p-12">
+        <Reveal className="mb-6 md:mb-10">
+          <p className="text-sm tracking-wide text-bosla-gold">من نحن</p>
+          <h2 className="mt-2 font-display text-2xl font-bold text-bosla-white md:mt-3 md:text-[34px]">لماذا بوصلة؟</h2>
+        </Reveal>
 
-      <div className="grid gap-6 md:grid-cols-3 md:gap-8">
-        {items.map((item, index) => (
-          <Reveal key={item.id} delay={index * 0.12}>
-            <div className="group h-full rounded-3xl border border-bosla-silver/10 bg-bosla-charcoal/60 p-8 text-center transition-all duration-500 ease-smooth hover:-translate-y-1 hover:border-bosla-gold/50 hover:shadow-glow">
-              <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-bosla-gold/30 text-bosla-gold transition-colors duration-500 group-hover:bg-bosla-gold/10">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {icons[item.icon]}
-                </svg>
+        <div className="grid gap-3 md:grid-cols-3 md:gap-6">
+          {items.map((item, index) => (
+            <Reveal key={item.id} delay={index * 0.08}>
+              <div className="flex h-full flex-col gap-3 rounded-2xl bg-bosla-charcoal p-5 shadow-sm md:p-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-bosla-graphite text-bosla-gold">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {icons[item.icon]}
+                  </svg>
+                </span>
+                <h3 className="text-lg font-bold text-bosla-white">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-bosla-silver">{item.description}</p>
               </div>
-              <h3 className="font-display text-xl font-semibold text-bosla-white">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-bosla-silver/70">
-                {item.description}
-              </p>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

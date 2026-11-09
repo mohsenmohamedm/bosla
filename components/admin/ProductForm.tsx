@@ -12,6 +12,7 @@ export interface ProductFormValues {
   categoryId: string;
   badge: string;
   featured: boolean;
+  stock?: string;
 }
 
 interface ProductFormProps {
@@ -30,6 +31,7 @@ const emptyValues: ProductFormValues = {
   categoryId: '',
   badge: '',
   featured: false,
+  stock: '',
 };
 
 const inputClass =
@@ -89,6 +91,10 @@ export default function ProductForm({ productId, initial, categories }: ProductF
         <input required type="number" min={1} step="1" inputMode="numeric" value={values.price} onChange={(e) => update('price', e.target.value)} className={inputClass} />
       </Field>
 
+      <Field label="المخزون (عدد القطع)" hint="سيبه فاضي لو مش عايز تتبع المخزون">
+        <input type="number" min={0} step="1" inputMode="numeric" value={values.stock ?? ''} onChange={(e) => update('stock', e.target.value)} className={inputClass} />
+      </Field>
+
       <Field label="القسم">
         <select required value={values.categoryId} onChange={(e) => update('categoryId', e.target.value)} className={inputClass}>
           {categories.map((category) => (
@@ -97,16 +103,16 @@ export default function ProductForm({ productId, initial, categories }: ProductF
         </select>
       </Field>
 
+      <Field label="شارة (اختياري)" hint="مثال: جديد، الأكثر مبيعاً">
+        <input value={values.badge} onChange={(e) => update('badge', e.target.value)} className={inputClass} />
+      </Field>
+
       <Field label="رابط الصورة" hint="لازم يكون من Pexels أو Unsplash (https://)" className="md:col-span-2">
         <input required type="url" dir="ltr" value={values.image} onChange={(e) => update('image', e.target.value)} className={inputClass} placeholder="https://images.pexels.com/photos/..." />
       </Field>
 
       <Field label="وصف الصورة (للمكفوفين ومحركات البحث)" className="md:col-span-2">
         <input required value={values.imageAlt} onChange={(e) => update('imageAlt', e.target.value)} className={inputClass} />
-      </Field>
-
-      <Field label="شارة (اختياري)" hint="مثال: جديد، الأكثر مبيعاً">
-        <input value={values.badge} onChange={(e) => update('badge', e.target.value)} className={inputClass} />
       </Field>
 
       <Field label="ظهور في الصفحة الرئيسية">
