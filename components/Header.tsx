@@ -38,7 +38,7 @@ export default function Header() {
           : 'border-b border-bosla-gold/10 bg-bosla-black/95 py-3 backdrop-blur-md md:py-3.5'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-3 md:px-6">
         {/* اللوجو + السطر الصغير */}
         <Link
           href="/"
