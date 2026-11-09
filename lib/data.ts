@@ -62,9 +62,8 @@ export const categories: Category[] = [
     description:
       'قطع مختارة بعناية تضيف لمسة أنيقة لسيارتك، من الإضاءة إلى التفاصيل الداخلية.',
     // صورة placeholder من Pexels. غيّرها لصورة القسم الحقيقية.
-    image:
-      'https://images.pexels.com/photos/6761169/pexels-photo-6761169.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    imageAlt: 'سيارة سوداء أنيقة على طريق تحيط به الأشجار',
+    image: '/images/accessories.jpg',
+    imageAlt: 'إكسسوارات داخلية للسيارة: حامل موبايل وكوب حراري وشاحن',
   },
   // ➕ أقسام مستقبلية تُضاف هنا، مثال:
   // {
