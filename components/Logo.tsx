@@ -40,9 +40,9 @@ interface LogoProps {
 export default function Logo({ variant = 'header', className = '' }: LogoProps) {
   if (variant === 'header') {
     return (
-      <span className={`inline-flex items-center gap-2 leading-none ${className}`} aria-label="بوصلة">
-        <BoslaMark className="h-8 w-auto md:h-9" />
-        <span className="font-calligraphy text-2xl text-bosla-gold md:text-3xl">بوصلة</span>
+      <span className={`inline-flex flex-col items-center gap-1 leading-none ${className}`} aria-label="بوصلة">
+        <BoslaMark className="h-7 w-auto md:h-8" />
+        <span className="font-calligraphy text-xl text-bosla-gold md:text-2xl">بوصلة</span>
       </span>
     );
   }
