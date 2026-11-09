@@ -85,7 +85,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             type="button"
             onClick={handleAdd}
             aria-live="polite"
-            className="flex h-11 flex-1 items-center justify-center rounded-xl bg-bosla-accent text-sm font-bold text-bosla-gold-deep transition-all duration-300 hover:bg-[#E8523F] hover:text-white"
+            className="flex h-11 flex-1 items-center justify-center rounded-xl bg-bosla-gold text-sm font-bold text-white transition-all duration-300 hover:bg-bosla-gold-deep"
           >
             {added ? 'تمت الإضافة ✓' : 'أضف للسلة'}
           </button>
