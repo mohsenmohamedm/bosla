@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import StoreSettingsForm from '@/components/admin/StoreSettingsForm';
+import ResetDataButton from '@/components/admin/ResetDataButton';
 import { ADMIN_COOKIE, isValidAdminToken } from '@/lib/admin-auth';
 import { getStoreSettings } from '@/lib/store-settings';
 
@@ -31,6 +32,7 @@ export default async function AdminSettingsPage() {
           policiesEn: settings.policiesEn,
         }}
       />
+    <ResetDataButton />
     </section>
   );
 }
