@@ -1,5 +1,4 @@
 import PageShell from '@/components/PageShell';
-import { STORE } from '@/lib/store';
 
 export const metadata = { title: 'الاسترجاع والاستبدال' };
 
@@ -22,7 +21,7 @@ export default function ReturnsPage() {
         <section>
           <h2 className="mb-3 font-display text-xl text-bosla-white">طريقة الطلب</h2>
           <p>
-            ابعت رقم الطلب والمنتج وسبب الاسترجاع على واتساب {STORE.whatsappDisplay}، وهنرد عليك بالخطوات الجاية.
+            بعد تأكيد الأوردر هنتواصل معاك على رقم الموبايل اللي سجلته، وقتها ابعتلنا رقم الطلب والمنتج وسبب الاسترجاع، وهنرد عليك بالخطوات الجاية.
           </p>
         </section>
         <section>
