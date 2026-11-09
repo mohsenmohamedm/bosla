@@ -30,7 +30,7 @@ export default function Hero({ content }: HeroProps) {
         </svg>
       </div>
 
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-5 px-4 pb-20 pt-32 text-center md:gap-7 md:px-8 md:pb-32 md:pt-44">
+      <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-3.5 px-4 pb-14 pt-24 text-center md:gap-7 md:px-8 md:pb-28 md:pt-40">
         <motion.span
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -44,7 +44,7 @@ export default function Hero({ content }: HeroProps) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
-          className="font-display text-[34px] font-bold leading-[1.25] md:text-[60px]"
+          className="font-display text-[26px] font-bold leading-[1.25] md:text-[56px]"
         >
           {content.title}
           {content.titleAccent && <span className="block text-[#F5B83D]">{content.titleAccent}</span>}
@@ -54,7 +54,7 @@ export default function Hero({ content }: HeroProps) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
-          className="max-w-xl text-base leading-relaxed text-[#E3F1F0] md:text-xl"
+          className="max-w-xl text-sm leading-relaxed text-[#E3F1F0] md:text-xl"
         >
           {content.subtitle}
         </motion.p>
@@ -63,11 +63,11 @@ export default function Hero({ content }: HeroProps) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.24, ease: EASE }}
-          className="mt-2 flex flex-wrap items-center justify-center gap-3"
+          className="mt-1 flex flex-wrap items-center justify-center gap-3"
         >
           <Link
             href={content.primaryCta.href}
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-7 text-[15px] font-bold text-[#074F4D] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E3F1F0] md:h-14 md:px-9 md:text-base"
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-[#074F4D] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E3F1F0] md:h-14 md:px-9 md:text-base"
           >
             <span>{content.primaryCta.label}</span>
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -76,7 +76,7 @@ export default function Hero({ content }: HeroProps) {
           </Link>
           <Link
             href={content.secondaryCta.href}
-            className="inline-flex h-12 items-center rounded-full border border-white/30 px-7 text-[15px] font-bold text-white transition-colors duration-300 hover:bg-white/10 md:h-14 md:px-9 md:text-base"
+            className="inline-flex h-11 items-center rounded-full border border-white/30 px-6 text-sm font-bold text-white transition-colors duration-300 hover:bg-white/10 md:h-14 md:px-9 md:text-base"
           >
             {content.secondaryCta.label}
           </Link>
