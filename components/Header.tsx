@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-bosla-gold/10 bg-bosla-black/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 md:px-6 md:py-2.5">
+      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 md:px-8 md:py-2.5">
         <Link
           href="/"
           aria-label={`${isAr ? siteConfig.nameAr : siteConfig.nameEn} — ${t('الصفحة الرئيسية', 'Home')}`}
@@ -48,7 +48,7 @@ export default function Header() {
           type="button"
           onClick={() => setSearchOpen(true)}
           aria-label={t('بحث', 'Search')}
-          className="order-3 flex h-10 w-full items-center gap-2 rounded-xl border border-bosla-gold/20 bg-white px-3 text-start text-sm text-bosla-silver/70 transition-colors hover:border-bosla-gold/50 md:order-2 md:max-w-2xl md:flex-1"
+          className="order-3 flex h-10 w-full items-center gap-2 rounded-xl border border-bosla-gold/20 bg-white px-3 text-start text-sm text-bosla-silver/70 transition-colors hover:border-bosla-gold/50 md:order-2 md:mx-auto md:max-w-2xl md:flex-1"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-bosla-silver/60" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
             <circle cx="11" cy="11" r="7" />
@@ -100,11 +100,11 @@ export default function Header() {
       {/* شريط الأقسام */}
       <nav
         aria-label={t('الأقسام', 'Categories')}
-        className={`overflow-hidden border-t border-bosla-gold/10 transition-all duration-300 ${scrolled ? 'max-h-0 border-t-0' : 'max-h-12'}`}
+        className={`overflow-hidden border-t border-bosla-gold/10 transition-all duration-300 ${scrolled ? 'max-h-0 border-t-0' : 'max-h-14'}`}
       >
-        <ul className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-3 md:px-6">
+        <ul className="mx-auto flex max-w-[1600px] items-center gap-1 overflow-x-auto px-3 py-1 md:px-8">
           <li>
-            <Link href="/" className="block whitespace-nowrap px-3 py-2.5 text-sm font-bold text-bosla-gold">
+            <Link href="/" className="block whitespace-nowrap rounded-lg px-3 py-2 text-[15px] font-extrabold text-bosla-gold transition-all duration-200 hover:-translate-y-0.5 hover:bg-bosla-gold/10 active:scale-95">
               {t('الرئيسية', 'Home')}
             </Link>
           </li>
@@ -112,7 +112,7 @@ export default function Header() {
             <li key={category.id}>
               <Link
                 href={`/category/${category.slug}`}
-                className="block whitespace-nowrap px-3 py-2.5 text-sm font-medium text-bosla-silver transition-colors hover:text-bosla-gold"
+                className="block whitespace-nowrap rounded-lg px-3 py-2 text-[15px] font-bold text-bosla-silver transition-all duration-200 hover:-translate-y-0.5 hover:bg-bosla-gold/10 hover:text-bosla-gold-deep active:scale-95"
               >
                 {isAr ? category.name : CATEGORY_EN[category.slug] ?? category.name}
               </Link>
