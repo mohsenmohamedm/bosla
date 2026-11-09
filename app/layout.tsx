@@ -4,6 +4,7 @@ import Script from 'next/script';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ChromeGate from '@/components/ChromeGate';
 import Tracker from '@/components/Tracker';
 import { CartProvider } from '@/lib/cart';
 import { siteConfig } from '@/lib/data';
@@ -92,9 +93,13 @@ export default async function RootLayout({
         <LangProvider>
 <CartProvider>
           <Tracker />
-          <Header />
+          <ChromeGate>
+<Header />
+</ChromeGate>
           {children}
-          <Footer />
+          <ChromeGate>
+<Footer />
+</ChromeGate>
         </CartProvider>
 </LangProvider>
         </StoreConfigProvider>
