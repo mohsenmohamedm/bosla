@@ -27,7 +27,7 @@ export default function Hero(_props: HeroProps) {
         </svg>
       </div>
 
-      <div className="relative mx-auto flex max-w-[1600px] flex-col items-start gap-1.5 px-3 pb-5 pt-[168px] text-start md:gap-3 md:px-8 md:pb-12 md:pt-[150px]">
+      <div className="relative mx-auto flex max-w-[1600px] flex-col items-start gap-1.5 px-3 pb-5 pt-[150px] text-start md:gap-3 md:px-8 md:pb-12 md:pt-[132px]">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-[#F5B83D] md:text-sm">
           <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 md:h-4 md:w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" /></svg>
           {t('سوق بوصلة', 'Bosla Market')}
