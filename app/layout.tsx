@@ -11,6 +11,7 @@ import { activePixelId, getPixelSettings, isValidPixelId, metaPixelCode } from '
 import { StoreConfigProvider } from '@/components/StoreConfigProvider';
 import { getStoreSettings, toPublicConfig } from '@/lib/store-settings';
 import { STORE } from '@/lib/store';
+import { LangProvider } from '@/lib/lang';
 
 /* الخطوط — عناوين Reem Kufi، نصوص Cairo، إنجليزي Inter */
 const reemKufi = Reem_Kufi({
@@ -88,12 +89,14 @@ export default async function RootLayout({
           </Script>
         )}
         <StoreConfigProvider value={publicStore}>
-        <CartProvider>
+        <LangProvider>
+<CartProvider>
           <Tracker />
           <Header />
           {children}
           <Footer />
         </CartProvider>
+</LangProvider>
         </StoreConfigProvider>
       </body>
     </html>
