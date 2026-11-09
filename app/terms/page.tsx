@@ -38,7 +38,7 @@ export default async function TermsPage() {
         <section>
           <h2 className="mb-3 font-display text-xl text-bosla-white">التواصل</h2>
           <p>
-            واتساب {STORE.whatsappDisplay} أو الإيميل {STORE.email}.
+            هنتواصل معاك على رقم الموبايل اللي سجلته في الطلب.
           </p>
         </section>
       </div>
