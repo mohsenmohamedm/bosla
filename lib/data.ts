@@ -28,7 +28,6 @@ export const navItems: NavItem[] = [
   { label: 'الرئيسية', href: '/' },
   { label: 'الأقسام', href: '#categories' },
   { label: 'من نحن', href: '#about' },
-  { label: 'اتصل بنا', href: '#contact' },
 ];
 
 /* =========================================================================
@@ -43,7 +42,7 @@ export const heroContent: HeroContent = {
   subtitle: 'تشكيلة مختارة من أحدث المنتجات، بجودة نثق فيها وأسعار واضحة.',
   // صورة الهيرو من public/images (ملف محلي، مش من الإنترنت)
   image: '/images/hero-bg.png',
-  imageAlt: 'بوصلة — منتجات أنيقة على رف داكن',
+  imageAlt: 'بوصلة',
   primaryCta: { label: 'تسوق دلوقتي', href: '#products' },
   secondaryCta: { label: 'من نحن', href: '#about' },
 };
@@ -169,20 +168,20 @@ export const whyUsItems: WhyUsItem[] = [
   {
     id: 'shipping',
     icon: 'shipping',
-    title: 'شحن سريع',
-    description: 'نوصّل طلبك بأسرع وقت لأغلب المحافظات، بعناية كاملة من أول خطوة.',
+    title: 'توصيل لكل المحافظات',
+    description: 'نوصّل طلبك لحد باب بيتك بعناية، وبأسرع وقت ممكن.',
   },
   {
     id: 'authentic',
     icon: 'authentic',
     title: 'جودة أصلية',
-    description: 'منتجات مختارة من موردين معتمدين، ونضمن مطابقتها للوصف.',
+    description: 'منتجات أصلية ومطابقة للوصف، بنختارها بعناية قبل ما توصلك.',
   },
   {
     id: 'secure',
     icon: 'secure',
-    title: 'دفع آمن',
-    description: 'طرق دفع متعددة ومشفّرة تمنحك راحة البال في كل معاملة.',
+    title: 'دفع عند الاستلام',
+    description: 'اطلب وإنت مطمّن، وادفع لما الأوردر يوصلك وتستلمه.',
   },
 ];
 
