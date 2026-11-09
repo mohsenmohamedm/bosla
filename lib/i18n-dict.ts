@@ -8,7 +8,7 @@ export const STATIC_EN: Record<string, string> = {
   'السلة': 'Cart',
   'السلة فاضية دلوقتي.': 'Your cart is empty right now.',
   'تصفح المنتجات': 'Browse products',
-  'منتج في السلة': 'items in cart',
+  'منتج في السلة': 'item(s) in cart',
   'إزالة': 'Remove',
   'تقليل الكمية': 'Decrease quantity',
   'زيادة الكمية': 'Increase quantity',
