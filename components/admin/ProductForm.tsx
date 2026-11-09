@@ -11,6 +11,10 @@ export interface ProductFormValues {
   imageAlt: string;
   categoryId: string;
   badge: string;
+  nameEn?: string;
+  descriptionEn?: string;
+  imageAltEn?: string;
+  badgeEn?: string;
   featured: boolean;
   stock?: string;
 }
@@ -30,6 +34,10 @@ const emptyValues: ProductFormValues = {
   imageAlt: '',
   categoryId: '',
   badge: '',
+  nameEn: '',
+  descriptionEn: '',
+  imageAltEn: '',
+  badgeEn: '',
   featured: false,
   stock: '',
 };
@@ -86,6 +94,25 @@ export default function ProductForm({ productId, initial, categories }: ProductF
       <Field label="الوصف" className="md:col-span-2">
         <textarea required rows={4} value={values.description} onChange={(e) => update('description', e.target.value)} className={inputClass} />
       </Field>
+
+      <div className="md:col-span-2 rounded-2xl border border-bosla-gold/20 bg-bosla-gold/5 p-4">
+        <p className="mb-1 text-sm font-bold text-bosla-gold-deep">النسخة الإنجليزية (English)</p>
+        <p className="mb-4 text-xs text-bosla-silver">بتظهر للعميل لما يقلب الموقع إنجليزي. لو فاضية هيظهر النص العربي.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Product name" className="md:col-span-2">
+            <input dir="ltr" value={values.nameEn ?? ''} onChange={(e) => update('nameEn', e.target.value)} className={inputClass} />
+          </Field>
+          <Field label="Description" className="md:col-span-2">
+            <textarea dir="ltr" rows={3} value={values.descriptionEn ?? ''} onChange={(e) => update('descriptionEn', e.target.value)} className={inputClass} />
+          </Field>
+          <Field label="Image description (alt)">
+            <input dir="ltr" value={values.imageAltEn ?? ''} onChange={(e) => update('imageAltEn', e.target.value)} className={inputClass} />
+          </Field>
+          <Field label="Badge (e.g. New, Best seller)">
+            <input dir="ltr" value={values.badgeEn ?? ''} onChange={(e) => update('badgeEn', e.target.value)} className={inputClass} />
+          </Field>
+        </div>
+      </div>
 
       <Field label="السعر (جنيه)">
         <input required type="number" min={1} step="1" inputMode="numeric" value={values.price} onChange={(e) => update('price', e.target.value)} className={inputClass} />
