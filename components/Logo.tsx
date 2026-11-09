@@ -40,18 +40,24 @@ interface LogoProps {
 export default function Logo({ variant = 'header', className = '' }: LogoProps) {
   if (variant === 'header') {
     return (
-      <span className={`inline-flex flex-col items-center gap-1 leading-none ${className}`} aria-label="بوصلة">
-        <BoslaMark className="h-7 w-auto md:h-8" />
-        <span className="font-calligraphy text-xl text-bosla-gold md:text-2xl">بوصلة</span>
+      <span className={`inline-flex items-center gap-2.5 leading-none ${className}`} aria-label="بوصلة Bosla">
+        <BoslaMark className="h-10 w-auto md:h-11" />
+        <span className="flex flex-col items-start gap-1">
+          <span className="font-display text-2xl font-extrabold leading-none text-bosla-gold-deep md:text-[28px]">بوصلة</span>
+          <span className="font-latin text-xs font-semibold leading-none tracking-wide text-bosla-silver md:text-sm">Bosla</span>
+        </span>
       </span>
     );
   }
 
   if (variant === 'secondary') {
     return (
-      <span className={`inline-flex flex-col items-center gap-1 leading-none ${className}`} aria-label="بوصلة">
-        <BoslaMark className="h-9 w-auto" />
-        <span className="font-calligraphy text-2xl text-bosla-gold">بوصلة</span>
+      <span className={`inline-flex items-center gap-3 leading-none ${className}`} aria-label="بوصلة Bosla">
+        <BoslaMark className="h-11 w-auto" />
+        <span className="flex flex-col items-start gap-1">
+          <span className="font-display text-3xl font-extrabold leading-none text-bosla-gold-deep">بوصلة</span>
+          <span className="font-latin text-sm font-semibold leading-none tracking-wide text-bosla-silver">Bosla</span>
+        </span>
       </span>
     );
   }
