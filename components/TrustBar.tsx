@@ -9,18 +9,18 @@ const ITEMS = [
 
 export default function TrustBar() {
   return (
-    <section aria-label="مميزات بوصلة" className="relative z-10 mx-auto -mt-10 max-w-6xl px-4 md:-mt-12 md:px-8">
-      <ul className="grid grid-cols-3 gap-x-2 gap-y-5 rounded-3xl border border-bosla-gold/10 bg-white p-5 shadow-[0_12px_40px_-12px_rgba(6,48,46,0.25)] md:grid-cols-3 md:gap-6 md:p-7">
+    <section aria-label="مميزات بوصلة" className="relative z-10 mx-auto -mt-7 max-w-6xl px-4 md:-mt-12 md:px-8">
+      <ul className="grid grid-cols-3 gap-x-2 gap-y-5 rounded-3xl border border-bosla-gold/10 bg-white px-2 py-3.5 shadow-[0_12px_40px_-12px_rgba(6,48,46,0.25)] md:grid-cols-3 md:gap-6 md:p-7">
         {ITEMS.map((item) => (
           <li key={item.title} className="flex flex-col items-center gap-2 text-center md:flex-row md:gap-3 md:text-start">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-bosla-graphite text-bosla-gold">
+            <span className="flex h-9 w-9 shrink-0 md:h-11 md:w-11 items-center justify-center rounded-2xl bg-bosla-graphite text-bosla-gold">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d={item.icon} />
               </svg>
             </span>
             <span className="flex flex-col">
-              <span className="text-sm font-bold text-bosla-white md:text-base">{item.title}</span>
-              <span className="text-xs text-bosla-silver">{item.sub}</span>
+              <span className="text-xs font-bold text-bosla-white md:text-base">{item.title}</span>
+              <span className="text-[11px] text-bosla-silver md:text-xs">{item.sub}</span>
             </span>
           </li>
         ))}
