@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { usePathname } from 'next/navigation';
 
 export type Lang = 'ar' | 'en';
 
@@ -82,7 +83,10 @@ export function localizedField(item: LocalizedItem, field: string, lang: Lang, t
 }
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('ar');
+  const [stored, setLangState] = useState<Lang>('ar');
+  const pathname = usePathname();
+  // الداشبورد عربي فقط
+  const lang: Lang = pathname?.startsWith('/admin') ? 'ar' : stored;
 
   useEffect(() => {
     try {
@@ -112,14 +116,14 @@ export function LangProvider({ children }: { children: ReactNode }) {
       lang,
       isAr: lang === 'ar',
       setLang,
-      toggle: () => setLang(lang === 'ar' ? 'en' : 'ar'),
+      toggle: () => setLang(stored === 'ar' ? 'en' : 'ar'),
       t: (ar, en) => (lang === 'ar' ? ar : en),
       price: (n) => (lang === 'ar' ? `${n.toLocaleString('ar-EG')} ج.م` : `EGP ${n.toLocaleString('en-US')}`),
       num: (n) => n.toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US'),
       pf: (p, field) => localizedField(p, field, lang, PRODUCT_EN),
       cf: (c, field) => localizedField(c, field, lang, CATEGORY_TEXT_EN),
     }),
-    [lang, setLang],
+    [lang, stored, setLang],
   );
 
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
