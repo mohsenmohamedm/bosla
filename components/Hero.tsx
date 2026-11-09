@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import type { HeroContent } from '@/lib/types';
+import { useLang } from '@/lib/lang';
 
 interface HeroProps {
   content?: HeroContent;
@@ -10,6 +13,7 @@ interface HeroProps {
  * مرتفع قليلًا عشان المنتجات تظهر بسرعة على الموبايل.
  */
 export default function Hero(_props: HeroProps) {
+  const { isAr, t } = useLang();
   return (
     <section className="relative overflow-hidden bg-gradient-to-l from-[#06302E] via-[#074F4D] to-[#0B6E6B] text-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -23,22 +27,22 @@ export default function Hero(_props: HeroProps) {
         </svg>
       </div>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-1.5 px-3 pb-5 pt-[88px] text-right md:gap-3 md:px-6 md:pb-12 md:pt-36">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-1.5 px-3 pb-5 pt-[150px] text-start md:gap-3 md:px-6 md:pb-12 md:pt-[132px]">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-[#F5B83D] md:text-sm">
           <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 md:h-4 md:w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" /></svg>
-          سوق بوصلة
+          {t('سوق بوصلة', 'Bosla Market')}
         </span>
         <h1 className="font-display text-xl font-extrabold leading-snug md:text-5xl md:leading-tight">
-          كل ما تحتاجه.. <span className="text-[#F5B83D]">في مكان واحد</span>
+          {t('كل ما تحتاجه..', 'Everything you need..')}{' '}<span className="text-[#F5B83D]">{t('في مكان واحد', 'in one place')}</span>
         </h1>
         <p className="max-w-xs text-xs leading-relaxed text-white/80 md:max-w-xl md:text-lg">
-          منتجات مختارة بأسعار واضحة، والدفع عند الاستلام.
+          {t('منتجات مختارة بأسعار واضحة، والدفع عند الاستلام.', 'Curated products, clear prices, and cash on delivery.')}
         </p>
         <Link
           href="#products"
           className="mt-1 inline-flex h-9 items-center justify-center rounded-full bg-white px-5 text-xs font-bold text-[#074F4D] shadow-md transition-colors hover:bg-[#E3F1F0] md:h-12 md:px-8 md:text-base"
         >
-          تسوق دلوقتي ←
+          {t('تسوق دلوقتي', 'Shop now')} {isAr ? '←' : '→'}
         </Link>
       </div>
     </section>
