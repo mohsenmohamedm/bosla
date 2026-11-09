@@ -35,6 +35,11 @@ export interface Product {
   categoryId: Category['id'];
   /** شارة اختيارية (جديد، الأكثر طلباً...) */
   badge?: string;
+  /** ترجمات إنجليزية (اختيارية) لموقع العميل الإنجليزي */
+  nameEn?: string;
+  descriptionEn?: string;
+  imageAltEn?: string;
+  badgeEn?: string;
   /** يظهر في "منتجات مختارة" في الصفحة الرئيسية */
   featured?: boolean;
   /** عدد القطع في المخزون. null أو مش موجود = المخزون مش متتبع */
