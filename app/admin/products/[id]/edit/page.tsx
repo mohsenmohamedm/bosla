@@ -28,6 +28,10 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     imageAlt: product.imageAlt,
     categoryId: product.categoryId,
     badge: product.badge ?? '',
+    nameEn: product.nameEn ?? '',
+    descriptionEn: product.descriptionEn ?? '',
+    imageAltEn: product.imageAltEn ?? '',
+    badgeEn: product.badgeEn ?? '',
     featured: Boolean(product.featured),
     stock: typeof product.stock === 'number' ? String(product.stock) : '',
   };
