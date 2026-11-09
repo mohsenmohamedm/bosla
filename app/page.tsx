@@ -1,5 +1,4 @@
 import Hero from '@/components/Hero';
-import TrustBar from '@/components/TrustBar';
 import Categories from '@/components/Categories';
 import ProductGrid from '@/components/ProductGrid';
 import WhyUs from '@/components/WhyUs';
@@ -21,8 +20,7 @@ export default async function HomePage() {
   return (
     <main>
       <Hero content={heroContent} />
-      <TrustBar />
-      <Categories categories={categories} />
+            <Categories categories={categories} />
       <ProductGrid products={featuredProducts} />
       <WhyUs items={whyUsItems} />
       <Reviews />
