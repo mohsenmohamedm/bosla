@@ -1,0 +1,20 @@
+{
+  // إعدادات Cloudflare Workers — بتشغّل الموقع على سيرفرات Cloudflare
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bosla",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-05-05",
+  // nodejs_compat بتخلي مكتبات Node زي crypto و mongodb تشتغل
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // الدومين المربوط بالموقع (موجود فعلًا في Cloudflare، وذكره هنا بيحافظ عليه عند كل نشر)
+  "routes": [
+    { "pattern": "bosla-store.shop", "custom_domain": true }
+  ]
+}
