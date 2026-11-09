@@ -4,6 +4,13 @@
  * لو ضفت نص جديد في الموقع، ضيفه هنا بنفس الصياغة العربية بالظبط.
  */
 export const STATIC_EN: Record<string, string> = {
+  'تسوق حسب القسم': 'Shop by category',
+  'أقسام بوصلة': 'Bosla Categories',
+  'الكل': 'All',
+  'اختيارات بعناية': 'Carefully picked',
+  'منتجات مختارة': 'Featured products',
+  'الأكثر طلباً': 'Best seller',
+  'الأكثر طلبا': 'Best seller',
   // السلة
   'السلة': 'Cart',
   'السلة فاضية دلوقتي.': 'Your cart is empty right now.',
