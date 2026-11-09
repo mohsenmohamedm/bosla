@@ -34,8 +34,8 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-smooth ${
         scrolled
-          ? 'border-b border-bosla-gold/10 bg-bosla-black/90 py-2.5 backdrop-blur-md md:py-3'
-          : 'bg-transparent py-4 md:py-5'
+          ? 'border-b border-bosla-gold/10 bg-bosla-black/95 py-2 shadow-sm backdrop-blur-md md:py-2.5'
+          : 'border-b border-bosla-gold/10 bg-bosla-black/95 py-3 backdrop-blur-md md:py-3.5'
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
@@ -67,7 +67,7 @@ export default function Header() {
             type="button"
             aria-label="بحث"
             onClick={() => setSearchOpen(true)}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-bosla-gold/40 bg-bosla-black/30 text-bosla-gold backdrop-blur-sm transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-bosla-gold/30 bg-white text-bosla-gold transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
               <circle cx="11" cy="11" r="7" />
@@ -78,7 +78,7 @@ export default function Header() {
           <Link
             href="/cart"
             aria-label={`السلة — ${totalCount} قطعة`}
-            className="relative flex h-12 w-12 items-center justify-center rounded-full border border-bosla-gold/40 bg-bosla-black/30 text-bosla-gold backdrop-blur-sm transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-bosla-gold/30 bg-white text-bosla-gold transition-all duration-300 hover:border-bosla-gold hover:bg-bosla-gold/10"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
               <path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" />
