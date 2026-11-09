@@ -42,7 +42,7 @@ export default function Logo({ variant = 'header', className = '' }: LogoProps) 
   const wordmark = (arClass: string, enClass: string) => (
     <span className="inline-flex flex-col items-stretch gap-1 leading-none">
       <span className={`text-center font-display font-extrabold leading-none text-bosla-gold-deep ${arClass}`}>بوصلة</span>
-      <span dir="ltr" aria-hidden="true" className={`flex justify-between font-display font-bold leading-none text-bosla-gold ${enClass}`}>
+      <span dir="ltr" aria-hidden="true" className={`flex justify-between font-display font-extrabold leading-none text-bosla-gold-deep ${enClass}`}>
         {['B', 'o', 's', 'l', 'a'].map((ch, idx) => (
           <span key={idx}>{ch}</span>
         ))}
@@ -53,8 +53,8 @@ export default function Logo({ variant = 'header', className = '' }: LogoProps) 
   if (variant === 'header') {
     return (
       <span className={`inline-flex items-center gap-3 leading-none ${className}`} aria-label="بوصلة Bosla">
-        {wordmark('text-[26px] md:text-[30px]', 'text-[11px] md:text-[13px]')}
-        <BoslaMark className="h-11 w-auto md:h-12" />
+        {wordmark('text-[26px] md:text-[30px]', 'text-[12px] md:text-[14px]')}
+        <BoslaMark className="h-[46px] w-auto md:h-[52px]" />
       </span>
     );
   }
@@ -63,7 +63,7 @@ export default function Logo({ variant = 'header', className = '' }: LogoProps) 
     return (
       <span className={`inline-flex items-center gap-3 leading-none ${className}`} aria-label="بوصلة Bosla">
         {wordmark('text-[32px]', 'text-sm')}
-        <BoslaMark className="h-12 w-auto" />
+        <BoslaMark className="h-14 w-auto" />
       </span>
     );
   }
