@@ -1,5 +1,4 @@
 import PageShell from '@/components/PageShell';
-import { STORE } from '@/lib/store';
 
 export const metadata = { title: 'سياسة الخصوصية' };
 
@@ -28,7 +27,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-3 font-display text-xl text-bosla-white">التواصل</h2>
           <p>
-            لأي استفسار عن بياناتك تقدر تتواصل معانا على واتساب {STORE.whatsappDisplay} أو الإيميل {STORE.email}.
+            لأي استفسار عن بياناتك، اذكر ده في ملاحظات الطلب أو لما نتواصل معاك بعد تأكيد الأوردر.
           </p>
         </section>
       </div>
